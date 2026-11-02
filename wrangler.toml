@@ -1,0 +1,12 @@
+name = "thomlinson-consultancy-site"
+main = "worker/index.js"
+compatibility_date = "2026-10-01"
+# keep variables and secrets you set in the Cloudflare dashboard (MailerLite key, groups) when a new version deploys
+keep_vars = true
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+html_handling = "auto-trailing-slash"
+not_found_handling = "404-page"
+run_worker_first = ["/api/*"]
