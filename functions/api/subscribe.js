@@ -9,7 +9,7 @@
 //   MAILERLITE_GOAL_FIELD (text, optional) name of a custom text field to hold the "What brings you here?" answer
 //   ALLOWED_ORIGINS     (text, optional) comma list; defaults to the site's own origin
 //   RESEND_API_KEY      (secret, optional) lets the site email you each time someone joins
-//   NOTIFY_TO           (text, optional) who gets the notification; defaults to info@thethomlinsonconsultancy.com
+//   NOTIFY_TO           (text, optional) who gets the notification; optional
 //   NOTIFY_FROM         (text, optional) sender; defaults to "The Thomlinson Consultancy <hello@thethomlinsonconsultancy.com>"
 
 const json = (obj, status = 200) =>
@@ -21,7 +21,8 @@ const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&
 // Emails you when someone joins. Never blocks or breaks the sign-up if it fails.
 async function notify(env, { name, email, goal, source, isNew }) {
   if (!env.RESEND_API_KEY) return;
-  const to = env.NOTIFY_TO || 'info@thethomlinsonconsultancy.com';
+  const to = env.NOTIFY_TO;
+  if (!to) return;
   const from = env.NOTIFY_FROM || 'The Thomlinson Consultancy <hello@thethomlinsonconsultancy.com>';
   const where = source === 'newsletter' ? 'the website newsletter sign-up' : source;
   const html = `<p><strong>${isNew ? 'New subscriber' : 'Existing subscriber signed up again'}</strong></p>` +
