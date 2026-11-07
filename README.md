@@ -30,7 +30,7 @@ The site starts in **staging mode**: every page is sent with `noindex`, robots.t
 2. In Cloudflare: your project > Settings > Variables and Secrets:
    - `MAILERLITE_API_KEY` (as a Secret): your MailerLite token
    - `MAILERLITE_GROUPS` (text): `{"default":"111","newsletter":"111"}`
-   - Optional: `RESEND_API_KEY` (Secret) to email you each sign-up. `NOTIFY_TO` and `NOTIFY_FROM` default to info@ and hello@thethomlinsonconsultancy.com.
+   - For the enquiry form and optional sign-up notifications: `RESEND_API_KEY` (Secret), `NOTIFY_TO` (the address that receives enquiries, for example your Zoho address) and optionally `NOTIFY_FROM` (defaults to hello@thethomlinsonconsultancy.com, whose domain must be verified in Resend).
 3. Redeploy, then test with your own email. Until the key is added the form shows an honest "not switched on yet" message.
 
 ## 3. Connect thethomlinsonconsultancy.com
@@ -39,7 +39,7 @@ The site starts in **staging mode**: every page is sent with `noindex`, robots.t
 2. If the domain is not on Cloudflare yet, add it (Add a site) and change the nameservers at your registrar. Copy across any DNS records you need first.
 3. Add a redirect from www to the main address: Rules > Redirect Rules > `www.thethomlinsonconsultancy.com/*` to `https://thethomlinsonconsultancy.com/$1` (301).
 4. SSL/TLS > Full (strict).
-5. Set up the mailbox `info@thethomlinsonconsultancy.com` (or forward it) before going live, because the site, the privacy policy and the sign-up emails use it.
+5. The site shows no email address, to avoid spam. Enquiries come through the form on the Contact page (`/api/enquiry`) and are emailed to `NOTIFY_TO`.
 
 ## 4. Retire marcusthomlinson.com (do this last)
 
@@ -54,7 +54,7 @@ Search the site for `[[TODO` and fix every one (go-live checks for these):
 
 Check these by eye as well:
 - Prices on the Speaker Training Day page, and the next dates once you have them.
-- The email address `info@thethomlinsonconsultancy.com` is live.
+- The enquiry form delivers to your inbox (send yourself a test).
 
 Then run:
 
